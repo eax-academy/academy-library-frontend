@@ -1,115 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Academy Library</title>
-  <link rel="stylesheet" href="styles/main.css">
-</head>
-<body>
-
-  <header class="navbar">
-    <div class="logo">
-      <img src="assets/logo.png" alt="Academy Library Logo">
-      <h1>Academy Library</h1>
-    </div>
-    <nav>
-      <button id="btn-home">Home</button>
-      <button id="btn-my-library">My Library</button>
-      <button id="btn-upload">Upload</button>
-    </nav>
-  </header>
-
-  <main id="main-view">
-
-    <!-- Home / Library View -->
-    <section id="home-section" class="view active">
-      <div class="search-bar">
-        <input type="text" id="search-input" placeholder="Search by title, author, or keyword...">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Academy Library</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="logo">
+        <img src="assets/logo.png" alt="Academy Library Logo" />
+        <h1>Academy Library</h1>
       </div>
+      <nav>
+        <button id="btn-home">Home</button>
+        <button id="btn-my-library">My Library</button>
+        <button id="btn-upload">Upload</button>
+      </nav>
+    </header>
 
-      <aside class="sidebar">
-        <h3>Filters</h3>
-        <div class="filter-group">
-          <label>Author</label>
-          <select id="filter-author">
-            <option value="">All</option>
-          </select>
+    <main id="main-view">
+      <!-- Home / Library View -->
+      <section id="home-section" class="view active">
+        <div class="search-bar">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search by title, author, or keyword..."
+          />
         </div>
 
-        <div class="filter-group">
-          <label>Difficulty</label>
-          <select id="filter-difficulty">
-            <option value="">All</option>
+        <aside class="sidebar">
+          <h3>Filters</h3>
+          <div class="filter-group">
+            <label>Author</label>
+            <select id="filter-author">
+              <option value="">All</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Difficulty</label>
+            <select id="filter-difficulty">
+              <option value="">All</option>
+              <option value="beginner">Beginner</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Tags</label>
+            <div id="filter-tags"></div>
+          </div>
+        </aside>
+
+        <section class="library-content">
+          <!-- Book/Article Cards Will Appear Here -->
+          <div id="loading" class="loading">Loading...</div>
+          <p id="empty-placeholder" class="empty" style="display: none">
+            No resources found.
+          </p>
+
+          <div id="resource-grid" class="resource-grid"></div>
+          <div id="pagination" class="pagination">
+            <button id="prev-page">Previous</button>
+            <span id="page-number">1</span>
+            <button id="next-page">Next</button>
+          </div>
+        </section>
+      </section>
+
+      <!-- My Library (Bookmarks) -->
+      <section id="my-library-section" class="view hidden">
+        <h2>My Library</h2>
+        <div id="bookmarks-container" class="resource-grid"></div>
+      </section>
+
+      <!-- Upload Section -->
+      <section id="upload-section" class="view hidden">
+        <h2>Upload Resource</h2>
+        <form id="upload-form">
+          <input type="text" id="upload-title" placeholder="Title" required />
+          <input type="text" id="upload-author" placeholder="Author" required />
+          <input
+            type="text"
+            id="upload-tags"
+            placeholder="Tags (comma separated)"
+          />
+          <select id="upload-difficulty">
             <option value="beginner">Beginner</option>
             <option value="intermediate">Intermediate</option>
             <option value="advanced">Advanced</option>
           </select>
-        </div>
+          <textarea
+            id="upload-description"
+            placeholder="Short description"
+          ></textarea>
+          <input type="file" id="upload-file" accept="application/pdf" />
+          <input
+            type="url"
+            id="upload-link"
+            placeholder="Or external article URL"
+          />
+          <button type="submit">Submit for Review</button>
+        </form>
+      </section>
 
-        <div class="filter-group">
-          <label>Tags</label>
-          <div id="filter-tags"></div>
-        </div>
-      </aside>
-
-      <section class="library-content">
-        <div id="resource-grid" class="resource-grid">
-          <!-- Book/Article Cards Will Appear Here -->
+      <!-- Detail Page -->
+      <section id="detail-section" class="view hidden">
+        <div class="detail-container">
+          <button id="btn-back">← Back</button>
+          <h2 id="detail-title"></h2>
+          <p><strong>Author:</strong> <span id="detail-author"></span></p>
+          <p><strong>Tags:</strong> <span id="detail-tags"></span></p>
+          <p>
+            <strong>Difficulty:</strong> <span id="detail-difficulty"></span>
+          </p>
+          <p id="detail-description"></p>
+          <button id="btn-open-pdf">Open PDF</button>
+          <button id="btn-bookmark">Bookmark</button>
         </div>
       </section>
-    </section>
+    </main>
 
-    <!-- My Library (Bookmarks) -->
-    <section id="my-library-section" class="view hidden">
-      <h2>My Library</h2>
-      <div id="bookmarks-container" class="resource-grid"></div>
-    </section>
+    <footer>
+      <p>© 2025 Academy Library — for Academy Community Use Only</p>
+    </footer>
 
-    <!-- Upload Section -->
-    <section id="upload-section" class="view hidden">
-      <h2>Upload Resource</h2>
-      <form id="upload-form">
-        <input type="text" id="upload-title" placeholder="Title" required>
-        <input type="text" id="upload-author" placeholder="Author" required>
-        <input type="text" id="upload-tags" placeholder="Tags (comma separated)">
-        <select id="upload-difficulty">
-          <option value="beginner">Beginner</option>
-          <option value="intermediate">Intermediate</option>
-          <option value="advanced">Advanced</option>
-        </select>
-        <textarea id="upload-description" placeholder="Short description"></textarea>
-        <input type="file" id="upload-file" accept="application/pdf">
-        <input type="url" id="upload-link" placeholder="Or external article URL">
-        <button type="submit">Submit for Review</button>
-      </form>
-    </section>
-
-    <!-- Detail Page -->
-    <section id="detail-section" class="view hidden">
-      <div class="detail-container">
-        <button id="btn-back">← Back</button>
-        <h2 id="detail-title"></h2>
-        <p><strong>Author:</strong> <span id="detail-author"></span></p>
-        <p><strong>Tags:</strong> <span id="detail-tags"></span></p>
-        <p><strong>Difficulty:</strong> <span id="detail-difficulty"></span></p>
-        <p id="detail-description"></p>
-        <button id="btn-open-pdf">Open PDF</button>
-        <button id="btn-bookmark">Bookmark</button>
-      </div>
-    </section>
-
-  </main>
-
-  <footer>
-    <p>© 2025 Academy Library — for Academy Community Use Only</p>
-  </footer>
-
-  <script src="scripts/app.js"></script>
-  <script src="scripts/ui.js"></script>
-  <script src="scripts/library.js"></script>
-  <script src="scripts/filters.js"></script>
-  <script src="scripts/bookmarks.js"></script>
-
-</body>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/ui.js"></script>
+    <script src="scripts/library.js"></script>
+    <script src="scripts/filters.js"></script>
+    <script src="scripts/bookmarks.js"></script>
+  </body>
 </html>
+
+

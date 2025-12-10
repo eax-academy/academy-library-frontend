@@ -3,14 +3,18 @@
 export function createResourceCard(resource) {
   const card = document.createElement('div');
   card.className = 'resource-card';
-  card.innerHTML = `
-    <img src="assets/placeholder-book.png" alt="Book">
-    <h3>${resource.title}</h3>
-    <p>${resource.author}</p>
-    <p>${resource.tags.join(', ')}</p>
-    <button class="btn-view" data-id="${resource.id}">View</button>
-    <button class="btn-bookmark" data-id="${resource.id}">Bookmark</button>
-  `;
+
+  card.innerHTML =
+  `
+    <h3 class="title">${resource.title}</h3>
+    <p class="author">${resource.author}</p>
+    <p class="tags">${resource.tags.join(', ')}</p>
+    <p class="difficulty"><strong>Difficulty:</strong>${resource.difficulty}</p>
+    <p class="description">${resource.description}</p>
+
+    <button class="btn-view" data-it="${resource.id}">View Details</button>
+  `
+
   return card;
 }
 
